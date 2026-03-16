@@ -1,0 +1,3 @@
+[submodule "external/drkameleon-json-hsk"]
+	path = external/drkameleon-json-hsk
+	url = https://github.com/drkameleon/complete-hsk-vocabulary.git

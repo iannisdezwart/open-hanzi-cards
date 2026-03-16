@@ -1,0 +1,25 @@
+{
+  "name": "open-hanzi-cards",
+  "description": "Free web-based flash card app for learning Chinese vocabulary and characters",
+  "version": "0.0.1",
+  "main": "dist/dev/index.js",
+  "scripts": {
+    "tts-setup": "cd tts && python3 -m venv .venv",
+    "gen-tts": "cd tts && source .venv/bin/activate && pip install -r requirements.txt && python generate.py",
+    "build": "pnpm run tts-setup && pnpm run gen-tts && tsc -b && node dist/tools/build.js",
+    "start": "node dist/dev/index.js"
+  },
+  "keywords": [],
+  "author": "Iannis de Zwart",
+  "license": "GPL-3.0-only",
+  "packageManager": "pnpm@10.7.1",
+  "devDependencies": {
+    "express": "^5.2.1",
+    "hanzi-writer": "^3.7.3",
+    "static-page-utils": "^1.0.3",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.3",
+    "esbuild": "^0.18.16"
+  },
+  "type": "module"
+}

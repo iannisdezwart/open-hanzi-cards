@@ -1,0 +1,227 @@
+$border-color: black
+$border-radius: 8px
+$primary-color: black
+$secondary-color: #666
+$light-bg: #e8f4f8
+
+=card-base
+    border: 1px solid $border-color
+    border-radius: $border-radius
+    padding: 1rem 2rem
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    box-sizing: border-box
+
+    @media (max-width: 520px)
+        width: 100% !important
+
+=button-base
+    font-size: 1rem
+    border: 1px solid $border-color
+    border-radius: 4px
+    cursor: pointer
+    background-color: white
+
+    &:hover
+        background-color: lightgrey
+
+=small-button
+    +button-base
+    font-size: 0.8rem
+    padding: 0.2rem
+    margin: 0
+    width: 2rem
+    height: 2rem
+    text-align: center
+    box-sizing: border-box
+    line-height: 1.5rem
+    text-decoration: none
+    color: black
+    display: inline-block
+
+=heading
+    margin: 0
+    margin-bottom: 1rem
+    color: $primary-color
+
+body
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin: auto
+    justify-content: center
+    font-family: Arial, sans-serif
+
+#app
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+    padding: 2rem
+    box-sizing: border-box
+
+    @media (max-width: 520px)
+        padding: 1rem
+
+.controls
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    align-items: center
+
+#controls-stats
+    font-size: 0.9rem
+    color: $secondary-color
+    margin-left: 1rem
+
+.question
+    +card-base
+    width: 500px
+    position: relative
+
+    h1
+        +heading
+        font-size: 4rem
+
+    p
+        font-size: 1rem
+        color: grey
+
+    input
+        font-size: 1rem
+        padding: 0.5rem
+        box-sizing: border-box
+        margin-bottom: 1rem
+        width: min(300px, 100%)
+        text-align: center
+        border: 1px solid $border-color
+        border-radius: 4px
+
+    button
+        +button-base
+        padding: 0.5rem 1rem
+
+    .hanzi-writer
+        display: grid
+        grid-template-columns: 1fr 1fr
+        gap: 0.5rem
+
+        @media (max-width: 520px)
+            grid-template-columns: 1fr
+
+        p
+            grid-column: span 2
+            margin: 0
+            font-size: 1rem
+            color: $secondary-color
+
+        .hanzi-char
+            border: 1px dashed $secondary-color
+            border-radius: 4px
+            padding: 0.5rem
+
+            &:only-of-type
+                grid-column: span 2
+
+    .tts-button
+        +small-button
+
+.flash-card
+    +card-base
+    width: 500px
+    position: relative
+
+    h1
+        +heading
+        font-size: 4rem
+        text-align: center
+
+    .pos
+        display: flex
+        gap: 0.5rem
+        margin-bottom: 1rem
+        flex-wrap: wrap
+        justify-content: center
+
+        span
+            background-color: $light-bg
+            padding: 0.25rem 0.75rem
+            border-radius: 4px
+            font-size: 0.9rem
+            color: #333
+
+    p
+        margin: 0.5rem 0
+        font-size: 0.95rem
+        color: $secondary-color
+
+        &.starred
+            font-weight: bold
+            color: #ffa500
+
+        &.revision-level
+            font-weight: bold
+            color: #0066cc
+
+            span
+                font-size: 0.8rem
+
+                &.positive
+                    color: green
+                &.negative
+                    color: red
+
+        &.pinyin
+            font-size: 1.1rem
+            color: #555
+            margin-top: 1rem
+            margin-bottom: 0.5rem
+            font-style: italic
+
+        &.traditional
+            font-size: 1.4rem
+            color: #555
+            margin-top: 0.5rem
+            margin-bottom: 1rem
+
+    ol
+        margin: 0
+        padding: 0
+        list-style-position: inside
+
+        li
+            margin: 0.25rem 0
+            font-size: 0.95rem
+            color: #333
+
+    button
+        +button-base
+        padding: 0.75rem 1.5rem
+        margin-top: 1rem
+
+        &:active
+            background-color: #d3d3d3
+
+    .tts-button
+        +small-button
+
+    .info-button
+        +small-button
+
+.quiz-progress
+    margin-top: 1rem
+    font-size: 0.9rem
+    color: #333
+    text-align: center
+
+.top-right-corner
+    position: absolute
+    top: .5rem
+    right: .5rem
+
+.top-left-corner
+    position: absolute
+    top: .5rem
+    left: .5rem
