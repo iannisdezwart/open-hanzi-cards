@@ -1,14 +1,5 @@
 import HanziWriter from "hanzi-writer";
 import {
-  finaliseQuiz,
-  getAllLevels,
-  getLearningSet,
-  getLevelPartStats,
-  getPartCountForLevel,
-  initDb,
-  updateKnowledgeLevels,
-} from "./db";
-import {
   FlashCard,
   LEARNING_TYPE_UNLOCK_LEVELS,
   LEARNING_TYPES,
@@ -17,7 +8,15 @@ import {
   REVISION_LEVEL_DELTA,
 } from "./models";
 import { ui } from "./ui";
-import { clamp, levenshtein, shuffleArray, applySign } from "./util";
+import { applySign, clamp, levenshtein, shuffleArray } from "./util";
+import {
+  finaliseQuiz,
+  getAllLevels,
+  getLearningSet,
+  getLevelPartStats,
+  getPartCountForLevel,
+  updateKnowledgeLevels,
+} from "./words";
 
 let selectedLevel = "new-1";
 let selectedPart: number | undefined = undefined;
@@ -89,7 +88,7 @@ function getResultMandarinPinyinToEnglish(): Result {
     const trimmed = m.trim();
 
     // If whole meaning is parentheses, keep as-is.
-    if (/^\([^()]+\)$/.test(trimmed)) return [normalise(trimmed)];
+    if (/^\([^()]+\)$/.test(trimmed)) return [normalise(trimmed.slice(1, -1))];
 
     // Version without parentheses.
     const without = trimmed.replace(/\s*\([^()]*\)/g, "").trim();
@@ -107,12 +106,9 @@ function getResultMandarinPinyinToEnglish(): Result {
   };
 
   const isAnswerCorrect = (meaning: string, answer: string) => {
-    const a = normalise(answer);
-
-    return meaning
-      .split(";")
-      .flatMap(expandMeaning)
-      .some((m) => isClose(m, a));
+    const normalisedAnswer = normalise(answer);
+    const expandedMeanings = meaning.split(";").flatMap(expandMeaning);
+    return expandedMeanings.some((m) => isClose(m, normalisedAnswer));
   };
 
   const possibleAnswers = quizCards[quizCardIndex].card.word.forms
@@ -288,7 +284,7 @@ async function quizNextQuestionPressed() {
   }
 }
 
-async function quiz(level: string, part?: number) {
+export async function quiz(level: string, part?: number) {
   await updateControls();
 
   try {
@@ -309,7 +305,6 @@ async function quiz(level: string, part?: number) {
   }
 }
 
-export async function startApp() {
-  await initDb();
+export async function startQuizController() {
   await quiz(selectedLevel, selectedPart);
 }

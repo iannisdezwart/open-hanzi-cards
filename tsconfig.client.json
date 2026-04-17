@@ -4,7 +4,6 @@
     "lib": ["DOM", "ES2020"],
     "outDir": "dist/client",
     "rootDir": "src/client",
-    "moduleResolution": "node"
   },
   "include": ["src/client/**/*"]
 }

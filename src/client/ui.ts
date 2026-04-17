@@ -1,9 +1,7 @@
 import type { FlashCard, QuizCard } from "./models";
 
-const app = document.getElementById("app");
-
 export const ui = {
-  app,
+  app: document.getElementById("app")!,
 
   posName(pos: string) {
     const mapping: Record<string, string> = {
@@ -69,7 +67,7 @@ export const ui = {
     onSizeChange: (size: number) => void,
     selectedPart?: number,
   ) {
-    const controls = document.getElementById("controls");
+    const controls = document.getElementById("controls")!;
     const levelOptions = levels
       .map((l) => /* html */ `<option value="${l}">${l}</option>`)
       .join("");
@@ -104,6 +102,7 @@ export const ui = {
       </select>
       <label for="quiz-size">Cards in quiz:</label>
       <input type="number" id="quiz-size" min="1" value="${quizSize}" max="${stats.count}">
+      <button id="settings">⚙️</button>
     </div>
     <div class="row">
       ${statsHtml}
@@ -206,7 +205,7 @@ export const ui = {
     </div>
     ${this.quizProgressBar(progress.current, progress.total)}
     `;
-    const nextButton = document.getElementById("next-button");
+    const nextButton = document.getElementById("next-button")!;
     nextButton.addEventListener("click", onNext);
     setTimeout(() => nextButton.focus(), 0);
     const ttsBtn = document.querySelector(".tts-button")!;
@@ -222,9 +221,9 @@ export const ui = {
 
   registerAnswerInput(onSubmit: () => void) {
     document
-      .getElementById("submit-answer")
+      .getElementById("submit-answer")!
       .addEventListener("click", onSubmit);
-    const input = document.getElementById("answer-input");
+    const input = document.getElementById("answer-input")!;
     input.focus();
     input.addEventListener("keydown", (ev) => {
       if (ev.key != "Enter") {
@@ -339,7 +338,7 @@ export const ui = {
   },
 
   playTts(card: FlashCard) {
-    const url = `/res/audio/${encodeURIComponent(card.word.simplified)}.mp3`;
+    const url = `res/audio/${encodeURIComponent(card.word.simplified)}.mp3`;
     const audio = new Audio(url);
     audio.play();
   },

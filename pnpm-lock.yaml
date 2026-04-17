@@ -8,15 +8,9 @@ importers:
 
   .:
     dependencies:
-      express:
-        specifier: ^5.2.1
-        version: 5.2.1
-      hanzi-writer:
-        specifier: ^3.7.3
-        version: 3.7.3
-      static-page-utils:
-        specifier: ^1.0.3
-        version: 1.0.3
+      fflate:
+        specifier: ^0.8.2
+        version: 0.8.2
     devDependencies:
       '@types/express':
         specifier: ^5.0.6
@@ -27,6 +21,15 @@ importers:
       esbuild:
         specifier: ^0.18.16
         version: 0.18.20
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
+      hanzi-writer:
+        specifier: ^3.7.3
+        version: 3.7.3
+      static-page-utils:
+        specifier: ^1.0.6
+        version: 1.0.6
 
 packages:
 
@@ -495,6 +498,9 @@ packages:
     resolution: {integrity: sha512-QNI3sAvSvaOiaMl8FYU4trnEzCwiRr8XMWgAHzlrWpTSj+QaCSvOf1h82OEP1s4hiAXhnbXSyFWCf4ldZzZRVA==}
     hasBin: true
 
+  fflate@0.8.2:
+    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
+
   finalhandler@2.1.1:
     resolution: {integrity: sha512-S8KoZgRZN+a5rNwqTxlZZePjT/4cnm0ROV70LedRHZ0p8u9fRID0hJUZQpkKLzro8LfmC8sx23bY6tVNxv8pQA==}
     engines: {node: '>= 18.0.0'}
@@ -772,8 +778,8 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
-  static-page-utils@1.0.3:
-    resolution: {integrity: sha512-+zZOBwhE7vDXauzy4JAUtWjtHTOOR+e1CqkkhztCUoorm/CyR0nBYbVAHA2baP9DuEwp1oyst0jA2tegTMyPuw==}
+  static-page-utils@1.0.6:
+    resolution: {integrity: sha512-s2mnDZXtKrBQjnHpMHQk/Z0hibA/JAUPPd4OYGg/A3SQ6js1RN2FV+atCe63/w9AT5Zla/upf9Inf2c0/S+hQg==}
 
   statuses@2.0.2:
     resolution: {integrity: sha512-DvEy55V3DB7uknRo+4iOGT5fP1slR8wQohVdknigZPMpMstaKJQWhwiYBACJE3Ul2pTnATihhBYnRhZQHGBiRw==}
@@ -1258,6 +1264,8 @@ snapshots:
     dependencies:
       strnum: 2.1.2
 
+  fflate@0.8.2: {}
+
   finalhandler@2.1.1:
     dependencies:
       debug: 4.4.3
@@ -1554,7 +1562,7 @@ snapshots:
 
   source-map@0.6.1: {}
 
-  static-page-utils@1.0.3:
+  static-page-utils@1.0.6:
     dependencies:
       '@types/he': 1.2.3
       '@types/html-minifier': 4.0.6

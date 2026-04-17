@@ -1,5 +1,3 @@
-// Shared type definitions and constants used across the client-side code
-
 export type Form = {
   traditional: string;
   transcriptions: {

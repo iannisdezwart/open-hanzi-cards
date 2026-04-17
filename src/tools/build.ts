@@ -4,9 +4,11 @@ import { staticPageUtils } from "static-page-utils";
 import { makePageShell } from "static-page-utils/page-shell/page-shell.js";
 import { Settings } from "static-page-utils/settings.js";
 
+const prefix = process.env["WEB_PREFIX"] || "";
 const settings = {
   webroot: "www",
   cacheDir: "cache",
+  prefix,
   logger: (lvl, msg) => {
     console.log(`[${lvl}] ${msg}`);
   },
@@ -16,7 +18,7 @@ const utils = staticPageUtils(settings);
 
 const build = async () => {
   await esbuild.build({
-    entryPoints: ["src/client/quiz-controller.ts"],
+    entryPoints: ["dist/client/index.js"],
     bundle: true,
     platform: "browser",
     format: "iife",
@@ -30,7 +32,7 @@ const build = async () => {
     ${await utils.sass.import("src/client/styles/styles.sass")}
     `,
     tail: /* html */ `
-    <script src="/scripts/app.js"></script>
+    <script src="${prefix}/scripts/app.js"></script>
     <script>window.OpenHanziCards.startApp();</script>
     ${utils.pwa.importPwaServiceWorker("dist/pwa/service-worker.js")}
     `,
@@ -67,6 +69,8 @@ const build = async () => {
   });
   utils.res.link("words.json");
   utils.res.link("tts/audio");
+  utils.res.link("tts/offline-tts-bundle.zip");
+  utils.res.link("strokes/offline-strokes-bundle.zip");
   writeFileSync("www/index.html", page);
 };
 

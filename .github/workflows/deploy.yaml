@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup Node + pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Install deps
+        run: |
+          pnpm install
+          sudo apt-get update && sudo apt-get install -y imagemagick
+          sudo ln -s /usr/bin/convert /usr/local/bin/magick
+
+      - name: Build (creates www/)
+        run: |
+          export WEB_PREFIX="/${GITHUB_REPOSITORY#*/}"
+          echo "WEB_PREFIX=$WEB_PREFIX"
+          pnpm build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Copy www resolving symlinks
+        run: |
+          mkdir www_without_symlinks
+          cp -rL www/* www_without_symlinks/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./www_without_symlinks
+
+      - name: Deploy
+        uses: actions/deploy-pages@v4
